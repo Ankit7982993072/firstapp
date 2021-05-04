@@ -19,6 +19,8 @@ class Loader extends Component {
       //isLoading:false
     };
     this.getArticles = this.getArticles.bind(this);
+    this.defaultArticlesS = this.defaultArticlesS.bind(this);
+    this.defaultArticlesC = this.defaultArticlesC.bind(this);   
     this.defaultArticles = this.defaultArticles.bind(this);
     this.toggleTitle = this.toggleTitle.bind(this);
   }
@@ -26,31 +28,29 @@ class Loader extends Component {
     <h1 className="lato">LATEST NEWS</h1>
     this.defaultArticles();
   }
-  toggleTitle(id, x,ele,t,lu) {
-    if( document.getElementById(id+'_btn').innerHTML=="Read More")
-    {
-    document.getElementById(id).style.height='600px';
-    document.getElementById(id+'_con').style.height='400px';
-    document.getElementById(id+'para').innerHTML=x;
-    document.getElementById(id+'para').style.padding='15px';
-    document.getElementById(id+'para').style.backgroundColor="#ffffe6";
-    console.log("if");
-    // document.getElementById(id+'_btn').style.marginTop='10px';
-    document.getElementById(id+'det').style.marginTop='18px';
+  toggleTitle(id, x, ele, t, lu) {
+    if (document.getElementById(id + '_btn').innerHTML == "Read More") {
+      document.getElementById(id).style.height = '600px';
+      document.getElementById(id + '_con').style.height = '400px';
+      document.getElementById(id + 'para').innerHTML = x;
+      document.getElementById(id + 'para').style.padding = '15px';
+      document.getElementById(id + 'para').style.backgroundColor = "#ffffe6";
+      console.log("if");
+      // document.getElementById(id+'_btn').style.marginTop='10px';
+      document.getElementById(id + 'det').style.marginTop = '18px';
 
-    document.getElementById(id+'_btn').innerHTML=="Read More"?document.getElementById(id+'_btn').innerHTML="Read Less": document.getElementById(id+'_btn').innerHTML="";
+      document.getElementById(id + '_btn').innerHTML == "Read More" ? document.getElementById(id + '_btn').innerHTML = "Read Less" : document.getElementById(id + '_btn').innerHTML = "";
     }
-    else
-    {
-      document.getElementById(id).style.height='400px';
-      document.getElementById(id+'_con').style.height='55%';
-      document.getElementById(id+'para').innerHTML="";
+    else {
+      document.getElementById(id).style.height = '400px';
+      document.getElementById(id + '_con').style.height = '55%';
+      document.getElementById(id + 'para').innerHTML = "";
       console.log("else");
-       document.getElementById(id+'det').style.marginTop='10px';
-      document.getElementById(id+'para').style.padding='0px';
-      document.getElementById(id+'_btn').innerHTML=="Read Less"?document.getElementById(id+'_btn').innerHTML="Read More":document.getElementById(id+'_btn').innerHTML="";
+      document.getElementById(id + 'det').style.marginTop = '10px';
+      document.getElementById(id + 'para').style.padding = '0px';
+      document.getElementById(id + '_btn').innerHTML == "Read Less" ? document.getElementById(id + '_btn').innerHTML = "Read More" : document.getElementById(id + '_btn').innerHTML = "";
     }
-   
+
     // this.setState({expanded:!(this.state.expanded)});
     // document.getElementById(id).innerHTML=`<div className="container"  >
     //   {ele.article.media.main_image ? <img src={ele.article.media.main_image} alt="Notebook" /> : <img src={de}></img>}
@@ -84,6 +84,44 @@ class Loader extends Component {
     console.log(moment(defd).valueOf())
     //this.setState({datetim:defdate});
     const response = await fetch(`https://webhose.io/nseFilter?token=525612b2-ec4d-445b-8c3e-33ba527c5c95&size=21&q=Delhi published:>${moment(defd).valueOf()} article.language:english site.type%3Anews`);
+    //`${url}?token=${token}&format=json&size=21&article.language:english&q=${topic}`
+    const json = await response.json();
+    console.log(json);
+    this.setState({ data: json });
+    console.log(this.state.data.docs[0].article.title)
+    //return json ;
+  };
+  defaultArticlesC = async () => {
+    //this.setState({isLoading:true});
+    console.log(this.state.searchData);
+    console.log(this.state.datetim);
+
+    var defdate = new Date(new Date()).toISOString();
+    var defd = new Date(moment.utc(defdate).format('YYYY-MM-DD')).valueOf();
+
+    console.log(defd);
+    console.log(moment(defd).valueOf())
+    //this.setState({datetim:defdate});
+    const response = await fetch(`https://webhose.io/nseFilter?token=525612b2-ec4d-445b-8c3e-33ba527c5c95&size=21&q=COViD_INDIA published:>${moment(defd).valueOf()} article.language:english site.type%3Anews`);
+    //`${url}?token=${token}&format=json&size=21&article.language:english&q=${topic}`
+    const json = await response.json();
+    console.log(json);
+    this.setState({ data: json });
+    console.log(this.state.data.docs[0].article.title)
+    //return json ;
+  };
+  defaultArticlesS = async () => {
+    //this.setState({isLoading:true});
+    console.log(this.state.searchData);
+    console.log(this.state.datetim);
+
+    var defdate = new Date(new Date()).toISOString();
+    var defd = new Date(moment.utc(defdate).format('YYYY-MM-DD')).valueOf();
+
+    console.log(defd);
+    console.log(moment(defd).valueOf())
+    //this.setState({datetim:defdate});
+    const response = await fetch(`https://webhose.io/nseFilter?token=525612b2-ec4d-445b-8c3e-33ba527c5c95&size=21&q=IPL published:>${moment(defd).valueOf()} article.language:english site.type%3Anews`);
     //`${url}?token=${token}&format=json&size=21&article.language:english&q=${topic}`
     const json = await response.json();
     console.log(json);
@@ -142,20 +180,20 @@ class Loader extends Component {
           <div className="container" id={id} >
             {ele.article.media.main_image ? <img src={ele.article.media.main_image} alt="Notebook" /> : <img src={de}></img>}
 
-            <div className="content" id={id+'_con'} >
+            <div className="content" id={id + '_con'} >
               <p>Published: {t}</p>
               <h2 >{lu}</h2>
 
               <p id={id + 'para'} class="post__excerpt">
-                
+
               </p>
 
               {/* <div className="J" >{this.state.expanded?<div className="extra" >{x}<a onClick={this.toggleTitle}>Read less</a></div>:null}</div>
                               <a  target="_blank" onClick={this.toggleTitle}>Read More </a> */}
               <div>
-              <a  onClick={() => this.toggleTitle(id, x,ele,t,lu)} id={id + '_btn'}>Read More</a>
-              <a className="deta" href={ele.article.url} target="_blank"id={id+'det'}>DETAIL NEWS</a> 
-              </div> 
+                <a onClick={() => this.toggleTitle(id, x, ele, t, lu)} id={id + '_btn'}>Read More</a>
+                <a className="deta" href={ele.article.url} target="_blank" id={id + 'det'}>DETAIL NEWS</a>
+              </div>
             </div>
 
           </div>
@@ -180,8 +218,10 @@ class Loader extends Component {
       <div className="f">
         <Header />
 
-        <Below sear={this.getArticles} to={this.setTimer} data={this.searchChangeHandler} />
-        {this.state.searchData ? <h1 >TOP NEWS</h1> : <h1 className="lato">LATEST NEWS</h1>}
+        <Below sear={this.getArticles} searc={this.defaultArticlesC} searS={this.defaultArticlesS} to={this.setTimer} data={this.searchChangeHandler} />
+        
+        <div>{this.state.searchData ? <div className="ico" ><i class="fa fa-globe" >TOP NEWS</i></div> : <h1 className="lato">LATEST NEWS</h1>}</div>
+        
         <div className="bel">
           <div className="full">{text}</div>
         </div>

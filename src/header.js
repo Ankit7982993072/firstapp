@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import './header.css';
 import im from './LOGONEW2.JPG';
 
-class head extends Component{
-    render(){
-        return(
-         <div className="header">
-             <img src={im}></img>
-            <h1>NEWS TRACKER</h1>
-         </div>
-        );
-    }
+class head extends Component {
+  render() {
+    return (
+      <div className="header">
+        <img src={im}></img>
+        <h1>NEWS TRACKER</h1>
+      </div>
+    );
+  }
 }
 //window.onscroll = function() {myFunction()};
 
