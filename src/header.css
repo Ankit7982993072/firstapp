@@ -29,6 +29,14 @@
         }
         .header{
             background: linear-gradient(to left, orange,rgb(184, 70, 236),rgba(109, 186, 238, 0.945));
+            height: 100px;
+
+            
+        }
+        .header img{
             position:inline-block;
+            float:left;
+            margin-top:10px;
+            margin-left: 5px;
         }
   }
