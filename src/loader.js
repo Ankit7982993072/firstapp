@@ -35,7 +35,7 @@ class Loader extends Component {
       document.getElementById(id + 'para').innerHTML = x;
       document.getElementById(id + 'para').style.padding = '15px';
       document.getElementById(id + 'para').style.backgroundColor = "#ffffe6";
-      console.log("if");
+      //console.log("if");
       // document.getElementById(id+'_btn').style.marginTop='10px';
       document.getElementById(id + 'det').style.marginTop = '18px';
 
@@ -45,7 +45,7 @@ class Loader extends Component {
       document.getElementById(id).style.height = '400px';
       document.getElementById(id + '_con').style.height = '55%';
       document.getElementById(id + 'para').innerHTML = "";
-      console.log("else");
+      //console.log("else");
       document.getElementById(id + 'det').style.marginTop = '10px';
       document.getElementById(id + 'para').style.padding = '0px';
       document.getElementById(id + '_btn').innerHTML == "Read Less" ? document.getElementById(id + '_btn').innerHTML = "Read More" : document.getElementById(id + '_btn').innerHTML = "";
@@ -83,7 +83,7 @@ class Loader extends Component {
     console.log(defd);
     console.log(moment(defd).valueOf())
     //this.setState({datetim:defdate});
-    const response = await fetch(`https://webhose.io/nseFilter?token=525612b2-ec4d-445b-8c3e-33ba527c5c95&size=21&q=Delhi published:>${moment(defd).valueOf()} article.language:english site.type%3Anews`);
+    const response = await fetch(`https://webhose.io/nseFilter?token=97192a55-c0e8-41cb-a3be-3820f33b415a&size=21&q=Delhi published:>${moment(defd).valueOf()} article.language:english site.type%3Anews`);
     //`${url}?token=${token}&format=json&size=21&article.language:english&q=${topic}`
     const json = await response.json();
     console.log(json);
@@ -102,7 +102,7 @@ class Loader extends Component {
     console.log(defd);
     console.log(moment(defd).valueOf())
     //this.setState({datetim:defdate});
-    const response = await fetch(`https://webhose.io/nseFilter?token=525612b2-ec4d-445b-8c3e-33ba527c5c95&size=21&q=COViD_INDIA published:>${moment(defd).valueOf()} article.language:english site.type%3Anews`);
+    const response = await fetch(`https://webhose.io/nseFilter?token=97192a55-c0e8-41cb-a3be-3820f33b415a&size=21&q=COViD_INDIA published:>${moment(defd).valueOf()} article.language:english site.type%3Anews`);
     //`${url}?token=${token}&format=json&size=21&article.language:english&q=${topic}`
     const json = await response.json();
     console.log(json);
@@ -121,7 +121,7 @@ class Loader extends Component {
     console.log(defd);
     console.log(moment(defd).valueOf())
     //this.setState({datetim:defdate});
-    const response = await fetch(`https://webhose.io/nseFilter?token=525612b2-ec4d-445b-8c3e-33ba527c5c95&size=21&q=IPL published:>${moment(defd).valueOf()} article.language:english site.type%3Anews`);
+    const response = await fetch(`https://webhose.io/nseFilter?token=97192a55-c0e8-41cb-a3be-3820f33b415a&size=21&q=IPL published:>${moment(defd).valueOf()} article.language:english site.type%3Anews`);
     //`${url}?token=${token}&format=json&size=21&article.language:english&q=${topic}`
     const json = await response.json();
     console.log(json);
@@ -133,16 +133,16 @@ class Loader extends Component {
     console.log(this.state.searchData);
     console.log(this.state.datetim);
     console.log(moment(this.state.datetim).valueOf());
-    // var y=(dt===undefined)?new Date():this.state.datetim;
+    
     let response;
     if (this.state.datetim === "") {
-      // https://webhose.io/nseFilter?token=9f322961-bbca-4dd1-a676-5239038fbd17&q=Covid%2019
-      response = await fetch(`https://webhose.io/nseFilter?token=525612b2-ec4d-445b-8c3e-33ba527c5c95&size=21&q=${this.state.searchData} article.language:english site.type%3Anews`);
+      
+      response = await fetch(`https://webhose.io/nseFilter?token=97192a55-c0e8-41cb-a3be-3820f33b415a&size=21&q=${this.state.searchData} article.language:english site.type%3Anews`);
 
     }
     //`${url}?token=${token}&format=json&size=21&article.language:english&q=${topic}`
     else {
-      response = await fetch(`https://webhose.io/nseFilter?token=525612b2-ec4d-445b-8c3e-33ba527c5c95&size=21&q=${this.state.searchData} published:>${moment(this.state.datetim).valueOf()} article.language:english site.type%3Anews`);
+      response = await fetch(`https://webhose.io/nseFilter?token=97192a55-c0e8-41cb-a3be-3820f33b415a&size=21&q=${this.state.searchData} published:>${moment(this.state.datetim).valueOf()} article.language:english site.type%3Anews`);
     }
     const json = await response.json();
     console.log(json);
@@ -153,11 +153,13 @@ class Loader extends Component {
   };
   searchChangeHandler = (e) => {
     this.setState({ searchData: e.target.value });
+    //console.log(e);
     //console.log(e.target.value);
   };
 
   setTimer = (e) => {
-    console.log(e.target.value);
+    //console.log(e);
+    //console.log(e.target.value);
     var dt = new Date(e.target.value);
     this.setState({ datetim: dt.getTime() });
   }
@@ -172,24 +174,19 @@ class Loader extends Component {
         var su = (ele.article.title);
         var ju = (ele.article.summary);
         var lu = (su.split(" ").splice(0, 11).join(" "));
-        var ku = (ju.split(" ").splice(0, 32).join(" "));
+        //var ku = (ju.split(" ").splice(0, 32).join(" "));
         var x = (ele.article.summary);
-
         return (
           // style={(this.state.expanded)?{height:"auto"}:null}
           <div className="container" id={id} >
-            {ele.article.media.main_image ? <img src={ele.article.media.main_image} alt="Notebook" /> : <img src={de}></img>}
+            {ele.article.media.main_image ?<img src={ele.article.media.main_image} alt="Notebook" />:<img src={de}></img>}
 
             <div className="content" id={id + '_con'} >
               <p>Published: {t}</p>
               <h2 >{lu}</h2>
 
-              <p id={id + 'para'} class="post__excerpt">
-
+              <p id={id + 'para'} className="post__excerpt">
               </p>
-
-              {/* <div className="J" >{this.state.expanded?<div className="extra" >{x}<a onClick={this.toggleTitle}>Read less</a></div>:null}</div>
-                              <a  target="_blank" onClick={this.toggleTitle}>Read More </a> */}
               <div>
                 <a onClick={() => this.toggleTitle(id, x, ele, t, lu)} id={id + '_btn'}>Read More</a>
                 <a className="deta" href={ele.article.url} target="_blank" id={id + 'det'}>DETAIL NEWS</a>
@@ -200,6 +197,7 @@ class Loader extends Component {
 
         );
       })
+      //console.log(text);
     }
     else {
       return (
@@ -225,8 +223,6 @@ class Loader extends Component {
         <div className="bel">
           <div className="full">{text}</div>
         </div>
-
-
       </div>
     );
 
